@@ -4,8 +4,8 @@ services:
     ports:
      - 5432:5432
     environment:
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_USER=${DB_USERNAME:-postgres}
+     - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -35,7 +35,7 @@ services:
       test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/9092"]
       interval: ${HEALTH_CHECK_INTERVAL:-10s}
       timeout: ${HEALTH_CHECK_TIMEOUT:-5s}
-      retries: ${HEALTH_CHECK_RETRIES:5}
+      retries: ${HEALTH_CHECK_RETRIES:-5}
     depends_on:
       - zookeeper
     networks:
@@ -74,7 +74,7 @@ services:
       start_period: 10s
       interval: ${HEALTH_CHECK_INTERVAL:-10s}
       timeout: ${HEALTH_CHECK_TIMEOUT:-5s}
-      retries: ${HEALTH_CHECK_RETRIES:5}
+      retries: ${HEALTH_CHECK_RETRIES:-5}
     environment:
      - BOOTSTRAP_SERVERS=kafka:9092
      - GROUP_ID=1

@@ -14,3 +14,7 @@
 5. Access to postgres tools (pgAdmin)
  - schema: inventory
  - Do something with your data
+
+## Clean:
+1. Stop python consumer.py
+2. ./tools.sh pg down -v
